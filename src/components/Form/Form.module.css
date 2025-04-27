@@ -1,0 +1,68 @@
+.formDiv{
+    display: flex;
+    justify-content: space-between;
+
+    button{
+        width: 100px;
+        height: 40px;
+        color: white;
+        font-size: 16px;
+        letter-spacing: .4px;
+        border-radius: 40px;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        transition: .4s;
+        
+        &:hover{
+            color: lightgrey;
+        }
+    }
+}
+
+.inp{
+    width: 530px;
+    height: 40px;
+    border-radius: 40px;
+    border: 2px solid #751acf;
+    background-color: #333;
+    outline: none;
+    color: lightgray;
+    font-size: 16px;
+    padding-left: 16px;
+}
+::placeholder{
+    font-size: 14px;
+    letter-spacing: .4px;
+}
+
+.btn{
+    margin-left: 10px;
+    background-image: linear-gradient(to top, #953dee, #f34ea3);   
+}
+
+.clearBtn{
+    background-image: linear-gradient(to top, #f34ea3, #953dee );   
+}
+
+.taskCount{
+    display: flex;
+    margin-top: 16px;
+
+    h3{
+      padding-right: 6px;
+      letter-spacing: .8px;
+      color: #953dee;
+    }
+}
+
+.inp.error {
+    border: 2px solid red;
+}
+
+.errorText {
+    font-size: 12px;
+    letter-spacing: .8px;
+    color: red;
+    margin-top: 6px;
+}

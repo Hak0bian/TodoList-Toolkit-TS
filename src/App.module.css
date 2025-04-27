@@ -1,0 +1,20 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+  
+body{
+    background-color: #111;
+}
+  
+.mainDiv{
+    width: 800px;
+    margin: 25px auto;
+    border: 2px solid #751acf;
+    border-radius: 40px;
+    background-color: #222;
+    padding: 24px;
+    color: white;
+    font-family: sans-serif;
+}
