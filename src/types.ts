@@ -1,4 +1,4 @@
-type ITasks = {
+export type ITasks = {
     userId? : number
     id : number,
     title : string,

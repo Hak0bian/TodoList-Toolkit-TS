@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { TodoStateType } from "../../types";
+import { ITasks, TodoStateType } from "../../types";
 
 
 const initialState : TodoStateType = {
@@ -36,7 +36,7 @@ const todoSlice = createSlice({
 
         updateTask(state, action: PayloadAction<{ id: number, newTitle: string }>) {
             const { id, newTitle } = action.payload;
-            state.tasks = state?.tasks?.map((task) =>
+            state.tasks = state.tasks.map((task) =>
                 task.id === id ? { 
                         ...task, 
                         title: newTitle 
@@ -46,7 +46,7 @@ const todoSlice = createSlice({
         },
 
         toggleComplete(state, action: PayloadAction<number>){
-            state.tasks = state?.tasks?.map((task) =>
+            state.tasks = state.tasks.map((task) =>
                 task.id === action.payload ? {
                     ...task,
                     completed: !task.completed
@@ -57,10 +57,13 @@ const todoSlice = createSlice({
 
         removeTaskAction(state, action: PayloadAction<number>) {
             state.tasks = state.tasks.filter(task => task.id !== action.payload);
-        }
+        },
 
+        getTodos(state, action: PayloadAction<ITasks[]>){
+            state.tasks = [...state.tasks, ...action.payload]
+        }
     }
 })
 
-export const {changeText, addTask, clearText, clearAllTasks, updateTask, toggleComplete, removeTaskAction} = todoSlice.actions
+export const {changeText, addTask, clearText, clearAllTasks, updateTask, toggleComplete, removeTaskAction, getTodos} = todoSlice.actions
 export default todoSlice.reducer
