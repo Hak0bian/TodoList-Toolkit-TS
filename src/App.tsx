@@ -1,9 +1,6 @@
-
-import { ITasks } from './types'
 import { useAppDispatch, useAppSelector } from './hooks'
-import { getTodos } from './store/slices/todoSlice'
+import { getTodosThunk } from './store/slices/todoThunks'
 import { useEffect } from 'react'
-import axios from 'axios'
 import TasksDiv from './components/TasksDiv/TasksDiv'
 import Form from './components/Form/Form'
 import st from './App.module.css'
@@ -11,11 +8,11 @@ import st from './App.module.css'
 function App() {
   const dispatch = useAppDispatch()
   const {tasks} = useAppSelector((state) => state.todoState)
+  console.log(tasks);
+  
 
   useEffect(() => {
-    axios.get<ITasks[]>('https://jsonplaceholder.typicode.com/todos?_limit=5')
-      .then((res) => dispatch(getTodos(res?.data)))
-      .catch((err) => console.error(err))
+    dispatch(getTodosThunk())
   }, [])
 
   return (

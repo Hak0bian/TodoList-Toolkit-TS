@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { ITasks, TodoStateType } from "../../types";
+import { TodoStateType } from "../../types";
+import { getTodosThunk, addTaskThunk, updateTaskThunk, toggleCompleteThunk, removeTaskThunk } from "./todoThunks"
 
 
 const initialState : TodoStateType = {
@@ -15,55 +16,47 @@ const todoSlice = createSlice({
             state.text = action.payload
         },
 
-        addTask(state){
-            state.tasks = [
-                ...state.tasks,
-                {
-                    id: Date.now(),
-                    title: state.text,
-                    completed: false
-                }
-            ]
-        },
-
-        clearText(state){
-            state.text = ""
-        },
-
         clearAllTasks(state){
             state.tasks = []
-        },
+        }
+    },
 
-        updateTask(state, action: PayloadAction<{ id: number, newTitle: string }>) {
-            const { id, newTitle } = action.payload;
+
+    extraReducers: (builder) => {
+        builder.addCase(getTodosThunk.fulfilled, (state, action) => {
+            state.tasks = action.payload
+        })
+
+        builder.addCase(addTaskThunk.fulfilled, (state, action) => {
+            state.tasks = [...state.tasks, action.payload]
+            state.text = ""
+        })
+
+        builder.addCase(updateTaskThunk.fulfilled, (state, action) => {
             state.tasks = state.tasks.map((task) =>
-                task.id === id ? { 
+                task.id === action.payload.id ? { 
                         ...task, 
-                        title: newTitle 
+                        title: action.payload.title 
                     } 
                     : task
             );
-        },
+        })
 
-        toggleComplete(state, action: PayloadAction<number>){
+        builder.addCase(toggleCompleteThunk.fulfilled, (state, action) => {
             state.tasks = state.tasks.map((task) =>
-                task.id === action.payload ? {
+                task.id === action.payload.id ? {
                     ...task,
-                    completed: !task.completed
+                    completed: action.payload.completed
                 }
                 : task
             )
-        },
+        })
 
-        removeTaskAction(state, action: PayloadAction<number>) {
+        builder.addCase(removeTaskThunk.fulfilled, (state, action) => {
             state.tasks = state.tasks.filter(task => task.id !== action.payload);
-        },
-
-        getTodos(state, action: PayloadAction<ITasks[]>){
-            state.tasks = [...state.tasks, ...action.payload]
-        }
+        })
     }
 })
 
-export const {changeText, addTask, clearText, clearAllTasks, updateTask, toggleComplete, removeTaskAction, getTodos} = todoSlice.actions
+export const {changeText, clearAllTasks} = todoSlice.actions
 export default todoSlice.reducer

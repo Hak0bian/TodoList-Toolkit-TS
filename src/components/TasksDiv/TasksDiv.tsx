@@ -1,4 +1,4 @@
-import { toggleComplete, updateTask, removeTaskAction } from "../../store/slices/todoSlice";
+import { updateTaskThunk, toggleCompleteThunk, removeTaskThunk } from "../../store/slices/todoThunks";
 import { TasksDivProps } from "../../types"
 import { useAppDispatch } from "../../hooks";
 import { useState } from "react";
@@ -15,17 +15,17 @@ const TasksDiv = ({id, title, completed} : TasksDivProps) => {
 
     const addNewTitle = () => {
         if (newTitle.trim() && newTitle !== title) {
-            dispatch(updateTask({ id, newTitle }));
+            dispatch(updateTaskThunk({id, newTitle}));
         }
         setEdit(true);
     };
 
-    const completedTask = (id: number) => {
-        edit && dispatch(toggleComplete(id));
+    const completedTask = (id: number, completed: boolean) => {
+        edit && dispatch(toggleCompleteThunk({id, completed}));
     }
 
     const removeTask = (id: number) => {
-        dispatch(removeTaskAction(id))
+        dispatch(removeTaskThunk(id))
     }
 
     const removeByAnimation = () => {
@@ -48,7 +48,7 @@ const TasksDiv = ({id, title, completed} : TasksDivProps) => {
 
             <div className={st.iconsDiv}>
                 <button onClick={addNewTitle} className={st.save}> <LuBookmarkCheck/> </button>
-                <button onClick={() => completedTask(id)} className={st.check}> <FaCheck/> </button>
+                <button onClick={() => completedTask(id, completed)} className={st.check}> <FaCheck/> </button>
                 <button onClick={removeByAnimation} className={st.delete}> <IoCloseSharp/> </button>
             </div>
         </div>

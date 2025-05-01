@@ -1,4 +1,5 @@
-import { changeText, addTask, clearText, clearAllTasks } from '../../store/slices/todoSlice'
+import { changeText, clearAllTasks } from '../../store/slices/todoSlice'
+import { addTaskThunk } from '../../store/slices/todoThunks'
 import { useAppDispatch, useAppSelector } from '../../hooks'
 import { useState } from 'react'
 import st from "./Form.module.css"
@@ -14,9 +15,14 @@ const Form = () => {
     }
 
     const handleAddTask = () => {
+        const newTask = {
+            id: Date.now(),
+            title: text,
+            completed: false
+        }
+
         if(text.trim()){
-            dispatch(addTask())
-            dispatch(clearText())
+            dispatch(addTaskThunk(newTask))
         }else {
             setError("Input field is required !");
         }
