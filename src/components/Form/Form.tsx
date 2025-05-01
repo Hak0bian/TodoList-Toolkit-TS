@@ -6,12 +6,12 @@ import st from "./Form.module.css"
 
 const Form = () => {
     const dispatch = useAppDispatch()
-    const {text, tasks} = useAppSelector((state) => state.todoState)
-    const [error, setError] = useState<string>("");
+    const {text, tasks, loading, error} = useAppSelector((state) => state.todoState)
+    const [inputError, setInputError] = useState<string>("");
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         dispatch(changeText(event.target.value))
-        setError("");
+        setInputError("");
     }
 
     const handleAddTask = () => {
@@ -24,7 +24,7 @@ const Form = () => {
         if(text.trim()){
             dispatch(addTaskThunk(newTask))
         }else {
-            setError("Input field is required !");
+            setInputError("Input field is required !");
         }
     } 
 
@@ -39,16 +39,19 @@ const Form = () => {
                     value={text}
                     onChange={handleChange}
                     placeholder="Add Your Task"
-                    className={`${st.inp} ${error ? st.error : ""}`}
+                    className={`${st.inp} ${inputError ? st.error : ""}`}
                 />
                 <button onClick={handleAddTask} className={st.btn}>Add Task</button>
                 <button onClick={clearAll} className={st.clearBtn}>Clear All</button>
             </div>
-            {error && <p className={st.errorText}>{error}</p>}
+            {inputError && <p className={st.errorText}>{inputError}</p>}
 
             <div className={st.taskCount}>
                 <h3>Tasks - </h3>
                 <h3>{tasks.length}</h3>
+                
+                { loading &&  <h3 className={st.load}>Loading...</h3> }
+                { error &&  <h3 className={st.err}> {error} </h3> }
             </div>
         </div>
     )

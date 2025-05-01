@@ -36,8 +36,9 @@ const TasksDiv = ({id, title, completed} : TasksDivProps) => {
     };
 
     return (
-        <div className={`${st.task} ${removed ? st.removeAnimation : ""}`}>
-            {edit
+        <div className={st.tasksDiv}>
+            <div className={`${st.task} ${removed ? st.removeAnimation : ""}`}>
+                {edit
                 ?   <p className={completed ? st.line : ""} onDoubleClick={() => setEdit(false)}> {title} </p>
                 :   <input
                         className={st.newInp}
@@ -46,10 +47,11 @@ const TasksDiv = ({id, title, completed} : TasksDivProps) => {
                     />
                 }
 
-            <div className={st.iconsDiv}>
-                <button onClick={addNewTitle} className={st.save}> <LuBookmarkCheck/> </button>
-                <button onClick={() => completedTask(id, completed)} className={st.check}> <FaCheck/> </button>
-                <button onClick={removeByAnimation} className={st.delete}> <IoCloseSharp/> </button>
+                <div className={st.iconsDiv}>
+                    <button onClick={addNewTitle} className={st.save}> <LuBookmarkCheck/> </button>
+                    <button onClick={() => completedTask(id, completed)} className={st.check}> <FaCheck/> </button>
+                    <button onClick={removeByAnimation} className={st.delete}> <IoCloseSharp/> </button>
+                </div>
             </div>
         </div>
     )

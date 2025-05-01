@@ -37,7 +37,7 @@ export const toggleCompleteThunk = createAsyncThunk(
 export const removeTaskThunk = createAsyncThunk(
     "removeTaskThunk",
     async (id: number) => {
-        const res = await API.deleteTodo(id)
-        return res.data
+        await API.deleteTodo(id)
+        return id
     }
 )

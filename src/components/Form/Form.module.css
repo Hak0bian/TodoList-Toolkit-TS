@@ -54,6 +54,10 @@
       letter-spacing: .8px;
       color: #953dee;
     }
+
+    .load, .err{
+        margin: auto;
+    }
 }
 
 .inp.error {

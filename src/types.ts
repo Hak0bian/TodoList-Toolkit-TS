@@ -6,8 +6,10 @@ export type ITasks = {
 }
 
 export type TodoStateType = {
-    text : string,
-    tasks : Array<ITasks>,
+    text: string;
+    tasks: ITasks[];
+    loading: boolean;
+    error: string | null;
 }
 
 export type TasksDivProps = {

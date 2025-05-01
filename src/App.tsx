@@ -8,8 +8,6 @@ import st from './App.module.css'
 function App() {
   const dispatch = useAppDispatch()
   const {tasks} = useAppSelector((state) => state.todoState)
-  console.log(tasks);
-  
 
   useEffect(() => {
     dispatch(getTodosThunk())
@@ -17,7 +15,7 @@ function App() {
 
   return (
     <section className={st.mainDiv}>
-      <Form />
+      <Form/>
       {
         tasks?.map((task) => (
             <TasksDiv 

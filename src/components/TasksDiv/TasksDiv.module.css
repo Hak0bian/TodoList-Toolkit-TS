@@ -94,7 +94,6 @@
     animation: removeAnim 1s forwards;
 }
 
-
 @keyframes removeAnim {
     20% {
       opacity: 1;
